@@ -1,5 +1,3 @@
-use std::f64::consts::E;
-
 /**
  * returns an area under the curve from a to b
  *
@@ -29,13 +27,9 @@ where
     return area_a_to_b;
 }
 
-// not normalized because I want to annoy stats people
-fn bell_curve(x: f64) -> f64 {
-    // e^{-x^2}
-    E.powf(-x.powi(2))
-}
-
 fn main() {
+    // e^{-x^2}
+    let bell_curve = |x: f64| f64::exp(-x);
     let area = integrate(bell_curve, 0.0, 2.0, 100_000);
 
     println!("{}", area);
