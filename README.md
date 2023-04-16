@@ -21,7 +21,7 @@ fn main() {
 	let a = 0.0;
 	let b = 2.0;
 	let num_iterations = 100_000;
-    let area = integrate(bell_curve, a, b, 100_000);
+    let area = integrate(bell_curve, a, b, num_iterations);
 
     println!("{}", area);
     // >> 0.8820915739164501
