@@ -18,7 +18,11 @@ where
 
         // point lines outside the area if y larger than the output y
         let f_y = f(random_x);
-        let under_curve = random_y <= f_y;
+        let mut under_curve = random_y <= f_y;
+        if random_y < 0.0 {
+            under_curve = !under_curve;
+        }
+
         if under_curve {
             num_under_curve += 1;
         }
@@ -61,7 +65,7 @@ fn main() {
     // e^{-x^2}
     let bell_curve = |x: f64| (-x.powi(2)).exp();
     let area = integrate(bell_curve, 0.0, 2.0, 100_000);
-    let area2 = monte_carlo_integrate(bell_curve, 0.0, 2.0, 0.0, 1.0, 100_000);
+    let area2 = monte_carlo_integrate(bell_curve, 0.0, 2.0, -1.0, 1.0, 100_000_0);
 
     println!("{}", area);
     // \int_{0}^{2} e^{-x^2} dx = 0.8820915739164501
