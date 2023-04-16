@@ -3,8 +3,9 @@
  *
  * a must be larger than b and define the number of rectangles to approximate with
  *
- * TODO: parallelize this
- * TODO:
+ * TODO: do trapezoids for faster convergance
+ * TODO: parallelize this for large num_rectangles
+ * TODO: auto compute the best num_rectangles so still fast and precise
  */
 fn integrate<F>(f: F, a: f64, b: f64, num_rectangles: usize) -> f64
 where
