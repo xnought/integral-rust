@@ -10,7 +10,7 @@ where
     let mut rng = thread_rng();
     let total_area = (b - a) * (y_max - y_min); //width*height
 
-    let mut num_inside = 0;
+    let mut num_under_curve = 0;
     // generate random numbers of a box defined by a->b|a->height
     for _ in 0..num_random {
         let random_x = rng.gen_range(a..b);
@@ -18,16 +18,12 @@ where
 
         // point lines outside the area if y larger than the output y
         let f_y = f(random_x);
-        let inside = random_y <= f_y;
-        if inside {
-            num_inside += 1;
-            // println!("{}, {}", random_x, random_y);
-            // println!("inside");
-        } else {
-            // println!("outside");
+        let under_curve = random_y <= f_y;
+        if under_curve {
+            num_under_curve += 1;
         }
     }
-    let ratio = num_inside as f64 / num_random as f64;
+    let ratio = num_under_curve as f64 / num_random as f64;
     total_area * ratio
 }
 
