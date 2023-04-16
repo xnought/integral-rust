@@ -10,23 +10,28 @@ where
     let mut rng = thread_rng();
     let total_area = (b - a) * (y_max - y_min); //width*height
 
-    let mut num_under_curve = 0;
     // generate random numbers of a box defined by a->b|a->height
-    for _ in 0..num_random {
-        let random_x = rng.gen_range(a..b);
-        let random_y = rng.gen_range(y_min..y_max);
+    // and see how many come out under the curve
+    let num_under_curve = (0..num_random)
+        .into_iter()
+        .reduce(|_num_under_curve, _| {
+            let random_x = rng.gen_range(a..b);
+            let random_y = rng.gen_range(y_min..y_max);
 
-        // point lines outside the area if y larger than the output y
-        let f_y = f(random_x);
-        let mut under_curve = random_y <= f_y;
-        if random_y < 0.0 {
-            under_curve = !under_curve;
-        }
+            // point lines outside the area if y larger than the output y
+            let f_y = f(random_x);
+            let mut under_curve = random_y <= f_y;
+            if random_y < 0.0 {
+                under_curve = !under_curve;
+            }
+            if under_curve {
+                return _num_under_curve + 1;
+            }
 
-        if under_curve {
-            num_under_curve += 1;
-        }
-    }
+            return _num_under_curve;
+        })
+        .unwrap();
+
     let ratio = num_under_curve as f64 / num_random as f64;
     total_area * ratio
 }
