@@ -5,9 +5,15 @@ Approximate integration of a function from point a to b for a single variable x.
 For example,
 
 ```rust
-// e^{-x^2}
+// integral of e^{-x^2}
 let bell_curve = |x: f64| (-x.powi(2)).exp();
-let area = integrate(bell_curve, 0.0, 2.0, 100_000);
+
+// evaluated from 0 to 2
+let from = 0.0;
+let to = 2.0;
+let num_iterations = 100_000;
+
+let area = integrate(bell_curve, from, to, num_iterations);
 
 println!("{}", area);
 // \int_{0}^{2} e^{-x^2} dx = 0.8820915739164501
