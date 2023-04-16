@@ -13,6 +13,8 @@ fn bell_curve(x: f64) -> f64 {
     E.powf(-x.powi(2))
 }
 
+
+
 fn main() {
 	// setup for
 	// \int_{0}^{2} e^{-x^2} dx
@@ -23,6 +25,9 @@ fn main() {
 
     println!("{}", area);
     // >> 0.8820915739164501
-    // in actuality, it is supposed to be 0.882081390762. Pretty darn good.
+    // demsmos (below) says 0.882081390762. Pretty darn close.
 }
 ```
+
+In desmos this is what that integration would be evaluated to
+<img width="1613" alt="Screenshot 2023-04-15 at 6 50 38 PM" src="https://user-images.githubusercontent.com/65095341/232261859-dc1e5c57-4b48-461f-9a43-49ddbc4c0dc4.png">
