@@ -1,9 +1,31 @@
 use rand::{thread_rng, Rng};
 
 /**
- * integration by simulation and finding the area that way
+ * Comes from the integral average(\int_a^b f(x) dx) = 1/(b-a) * \int_a^b f(x) dx
+ * rearranges to (b-a)*(sum f(x_random) * 1/N)
  */
-fn monte_carlo_integrate<F>(f: F, a: f64, b: f64, y_min: f64, y_max: f64, num_random: usize) -> f64
+fn monte_carlo_integrate<F>(f: F, a: f64, b: f64, num_random: usize) -> f64
+where
+    F: Fn(f64) -> f64,
+{
+    let mut rng = thread_rng();
+    let rand_f: f64 = (0..num_random).map(|_| f(rng.gen_range(a..b))).sum();
+    let average = rand_f / num_random as f64;
+    return (b - a) * (average);
+}
+
+/**
+ * Create a square around the region and randomly generate points in the square
+ * then see the ratio of points under the curve and multiply by the area of the square
+ */
+fn area_monte_carlo_integrate<F>(
+    f: F,
+    a: f64,
+    b: f64,
+    y_min: f64,
+    y_max: f64,
+    num_random: usize,
+) -> f64
 where
     F: Fn(f64) -> f64,
 {
@@ -69,7 +91,7 @@ fn main() {
     // e^{-x^2}
     let bell_curve = |x: f64| (-x.powi(2)).exp();
     let area = integrate(bell_curve, 0.0, 2.0, 100_000);
-    let area2 = monte_carlo_integrate(bell_curve, 0.0, 2.0, -1.0, 1.0, 100_000_0);
+    let area2 = monte_carlo_integrate(bell_curve, 0.0, 2.0, 100_000);
 
     println!("{}", area);
     // \int_{0}^{2} e^{-x^2} dx = 0.8820915739164501
