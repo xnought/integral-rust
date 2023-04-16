@@ -29,10 +29,10 @@ where
 
 fn main() {
     // e^{-x^2}
-    let bell_curve = |x: f64| f64::exp(-x);
+    let bell_curve = |x: f64| (-x.powi(2)).exp();
     let area = integrate(bell_curve, 0.0, 2.0, 100_000);
 
     println!("{}", area);
     // \int_{0}^{2} e^{-x^2} dx = 0.8820915739164501
-    // in actuality, it is supposed to be 0.882081390762, so pretty good!
+    // supposed to be 0.882081390762, so pretty good!
 }
