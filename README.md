@@ -13,8 +13,6 @@ fn bell_curve(x: f64) -> f64 {
     E.powf(-x.powi(2))
 }
 
-
-
 fn main() {
 	// setup for
 	// \int_{0}^{2} e^{-x^2} dx
